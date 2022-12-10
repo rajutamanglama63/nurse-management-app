@@ -25,6 +25,9 @@ const nurseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  createdBy: {
+    type: String,
+  },
 });
 
 nurseSchema.set("toJSON", {
