@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
+const config = require("../utils/config");
 
 const userRouter = express.Router();
 
@@ -14,7 +15,7 @@ userRouter.post("/signup", async (req, res, next) => {
       return res.status(400).json({ msg: "All fields are required!" });
     }
 
-    if (password.length < 3) {
+    if (password.length <= 3) {
       return res
         .status(400)
         .json({ msg: "Password must be at least 4 character long." });
@@ -37,6 +38,41 @@ userRouter.post("/signup", async (req, res, next) => {
     newUser.save();
 
     res.status(201).json(newUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+userRouter.post("/signin", async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ msg: "All fields are require!" });
+    }
+
+    const userExist = await User.findOne({ email });
+    if (!userExist) {
+      return res.status(400).json({ msg: "User does not exist!" });
+    }
+
+    const isMatch = await bcrypt.compare(password, userExist.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid credentials" });
+    }
+
+    const userForToken = {
+      username: userExist.username,
+      id: userExist._id,
+    };
+
+    const token = jwt.sign(userForToken, config.SECRET, { expiresIn: 60 * 60 });
+
+    res.status(200).json({
+      token,
+      id: userExist.id,
+      username: userExist.username,
+    });
   } catch (error) {
     next(error);
   }

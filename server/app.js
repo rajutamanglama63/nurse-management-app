@@ -14,7 +14,9 @@ app.use(express.json());
 //   res.send("Hello there!!!");
 // });
 
-app.use("/api/users", userRouter);
+app.use(middleware.userExtractor);
+
+app.use("/api/user", userRouter);
 
 app.use(middleware.unKnownEndPoint);
 
