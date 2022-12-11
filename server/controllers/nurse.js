@@ -52,6 +52,34 @@ nurseRouter.post("/", async (req, res, next) => {
   }
 });
 
+nurseRouter.get("/", async (req, res, next) => {
+  try {
+    const nurses = await Nurse.find({});
+
+    res.status(200).json(nurses);
+  } catch (error) {
+    next(error);
+  }
+});
+
+nurseRouter.delete("/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const nurseToBeRemoved = await Nurse.findById(id);
+
+    const decodedUser = userDecodedFromToken(req.user);
+
+    if (!decodedUser.id) {
+      return res.status(401).json({ error: "token missing or invalid" });
+    }
+
+    nurseToBeRemoved.remove();
+    res.status(200).json({ msg: "Removed successfully.", nurseToBeRemoved });
+  } catch (error) {
+    next(error);
+  }
+});
+
 const userDecodedFromToken = (user) => {
   const decodedUser = jwt.verify(user, config.SECRET);
 
