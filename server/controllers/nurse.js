@@ -54,7 +54,14 @@ nurseRouter.post("/", async (req, res, next) => {
 
 nurseRouter.get("/", async (req, res, next) => {
   try {
-    const nurses = await Nurse.find({});
+    let nurses = await Nurse.find({});
+
+    nurses.forEach(function (nurse, index) {
+      if (nurse.isRoundingManager) {
+        nurses.splice(index, 1);
+        nurses.unshift(nurse);
+      }
+    });
 
     res.status(200).json(nurses);
   } catch (error) {
@@ -75,6 +82,52 @@ nurseRouter.delete("/:id", async (req, res, next) => {
 
     nurseToBeRemoved.remove();
     res.status(200).json({ msg: "Removed successfully.", nurseToBeRemoved });
+  } catch (error) {
+    next(error);
+  }
+});
+
+nurseRouter.put("/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const {
+      fullname,
+      email,
+      contact,
+      address,
+      gender,
+      workingDays,
+      dutyStartTime,
+      dutyEndTime,
+      isRoundingManager,
+    } = req.body;
+
+    const decodedUser = userDecodedFromToken(req.user);
+
+    if (!decodedUser.id) {
+      return res.status(401).json({ error: "token missing or invalid" });
+    }
+
+    const nurseWithUpdatedData = {
+      fullname,
+      email,
+      contact,
+      address,
+      gender,
+      workingDays,
+      dutyStartTime,
+      dutyEndTime,
+      isRoundingManager,
+    };
+
+    const updatedNurse = await Nurse.findByIdAndUpdate(
+      id,
+      nurseWithUpdatedData,
+      { new: true }
+    );
+
+    res.status(200).json({ msg: "Updated successfully.", updatedNurse });
   } catch (error) {
     next(error);
   }
