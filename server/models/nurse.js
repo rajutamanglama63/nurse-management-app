@@ -21,6 +21,9 @@ const nurseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  photo: {
+    type: String,
+  },
   workingDays: {
     type: Number,
     required: true,

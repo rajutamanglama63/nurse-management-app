@@ -1,11 +1,59 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
+const dotenv = require("dotenv");
+const cloudinary = require("cloudinary");
 
 const Nurse = require("../models/nurse");
 const User = require("../models/user");
 const config = require("../utils/config");
 
+dotenv.config();
+
 const nurseRouter = express.Router();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
+
+nurseRouter.post("/photo/upload", async (req, res, next) => {
+  try {
+    console.log(req.files);
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).json({ msg: "No files were uploaded." });
+    }
+
+    const file = req.files.file;
+
+    if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/png") {
+      removeTem(file.tempFilePath);
+      return res.status(400).json({ msg: "Invalid file format." });
+    }
+
+    cloudinary.v2.uploader.upload(
+      file.tempFilePath,
+      { folder: "nurse" },
+      (err, result) => {
+        if (err) throw err;
+        removeTem(file.tempFilePath);
+        res
+          .status(200)
+          .json({ publicId: result.public_id, url: result.secure_url });
+      }
+    );
+  } catch (error) {
+    next(error);
+    res.status(500).json({ msg: error.message });
+  }
+});
+
+const removeTem = (path) => {
+  fs.unlink(path, (err) => {
+    if (err) throw err;
+  });
+};
 
 nurseRouter.post("/", async (req, res, next) => {
   try {
@@ -15,6 +63,7 @@ nurseRouter.post("/", async (req, res, next) => {
       contact,
       address,
       gender,
+      photo,
       workingDays,
       dutyStartTime,
       dutyEndTime,
@@ -38,6 +87,7 @@ nurseRouter.post("/", async (req, res, next) => {
       contact,
       address,
       gender,
+      photo,
       workingDays,
       dutyStartTime,
       dutyEndTime,
@@ -69,7 +119,7 @@ nurseRouter.get("/", async (req, res, next) => {
   }
 });
 
-nurseRouter.delete("/:id", async (req, res, next) => {
+nurseRouter.delete("/:nurse_id", async (req, res, next) => {
   try {
     const id = req.params.id;
     const nurseToBeRemoved = await Nurse.findById(id);
@@ -87,7 +137,7 @@ nurseRouter.delete("/:id", async (req, res, next) => {
   }
 });
 
-nurseRouter.put("/:id", async (req, res, next) => {
+nurseRouter.put("/:nurse_id", async (req, res, next) => {
   try {
     const id = req.params.id;
 
@@ -97,6 +147,7 @@ nurseRouter.put("/:id", async (req, res, next) => {
       contact,
       address,
       gender,
+      photo,
       workingDays,
       dutyStartTime,
       dutyEndTime,
@@ -115,6 +166,7 @@ nurseRouter.put("/:id", async (req, res, next) => {
       contact,
       address,
       gender,
+      photo,
       workingDays,
       dutyStartTime,
       dutyEndTime,
