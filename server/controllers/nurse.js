@@ -27,6 +27,13 @@ nurseRouter.post("/photo/upload", async (req, res, next) => {
 
     const file = req.files.file;
 
+    // 1024*1024*1 = 1mb, 1024*1024*3 = 3mb
+
+    if (file.size > 1024 * 1024 * 3) {
+      removeTem(file.tempFilePath);
+      return res.status(400).json({ msg: "File size is too large." });
+    }
+
     if (file.mimetype !== "image/jpeg" && file.mimetype !== "image/png") {
       removeTem(file.tempFilePath);
       return res.status(400).json({ msg: "Invalid file format." });
