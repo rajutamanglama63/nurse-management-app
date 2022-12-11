@@ -13,6 +13,14 @@ const nurseSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  address: {
+    type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
   workingDays: {
     type: Number,
     required: true,
@@ -25,7 +33,7 @@ const nurseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  createdBy: {
+  registeredBy: {
     type: String,
   },
 });

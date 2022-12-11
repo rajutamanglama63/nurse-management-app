@@ -13,6 +13,8 @@ nurseRouter.post("/", async (req, res, next) => {
       fullname,
       email,
       contact,
+      address,
+      gender,
       workingDays,
       dutyStartTime,
       dutyEndTime,
@@ -34,10 +36,12 @@ nurseRouter.post("/", async (req, res, next) => {
       fullname,
       email,
       contact,
+      address,
+      gender,
       workingDays,
       dutyStartTime,
       dutyEndTime,
-      createdBy: user.username,
+      registeredBy: user.username,
     });
 
     await newNurse.save();
