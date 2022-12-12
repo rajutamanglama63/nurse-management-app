@@ -25,7 +25,7 @@ const nurseSchema = new mongoose.Schema({
     type: String,
   },
   workingDays: {
-    type: Number,
+    type: Array,
     required: true,
   },
   dutyStartTime: {
