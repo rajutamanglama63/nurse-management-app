@@ -128,7 +128,7 @@ nurseRouter.get("/", async (req, res, next) => {
 
 nurseRouter.delete("/:nurse_id", async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = req.params.nurse_id;
     const nurseToBeRemoved = await Nurse.findById(id);
 
     const decodedUser = userDecodedFromToken(req.user);
@@ -146,7 +146,7 @@ nurseRouter.delete("/:nurse_id", async (req, res, next) => {
 
 nurseRouter.put("/:nurse_id", async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = req.params.nurse_id;
 
     const {
       fullname,
@@ -185,6 +185,8 @@ nurseRouter.put("/:nurse_id", async (req, res, next) => {
       nurseWithUpdatedData,
       { new: true }
     );
+
+    console.log(updatedNurse);
 
     res.status(200).json({ msg: "Updated successfully.", updatedNurse });
   } catch (error) {
