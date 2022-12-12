@@ -9,9 +9,9 @@ const userRouter = express.Router();
 
 userRouter.post("/signup", async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { fullname, email, password } = req.body;
 
-    if (!username || !email || !password) {
+    if (!fullname || !email || !password) {
       return res.status(400).json({ msg: "All fields are required!" });
     }
 
@@ -30,7 +30,7 @@ userRouter.post("/signup", async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new User({
-      username,
+      fullname,
       email,
       password: hashedPassword,
     });
@@ -62,7 +62,7 @@ userRouter.post("/signin", async (req, res, next) => {
     }
 
     const userForToken = {
-      username: userExist.username,
+      fullname: userExist.fullname,
       id: userExist._id,
     };
 
@@ -71,7 +71,7 @@ userRouter.post("/signin", async (req, res, next) => {
     res.status(200).json({
       token,
       id: userExist.id,
-      username: userExist.username,
+      fullname: userExist.fullname,
     });
   } catch (error) {
     next(error);

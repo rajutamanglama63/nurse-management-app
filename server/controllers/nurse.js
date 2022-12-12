@@ -98,7 +98,7 @@ nurseRouter.post("/", async (req, res, next) => {
       workingDays,
       dutyStartTime,
       dutyEndTime,
-      registeredBy: user.username,
+      registeredBy: user.fullname,
     });
 
     await newNurse.save();
