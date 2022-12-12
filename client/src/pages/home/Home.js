@@ -1,9 +1,10 @@
-import "./home.scss";
+import { Button, Typography } from "@mui/material";
 
 const Home = () => {
   return (
-    <div className="home">
-      <h1>This is home page</h1>
+    <div>
+      <Typography variant="h1">Home page</Typography>
+      <Button variant="secondary">Btn</Button>
     </div>
   );
 };
