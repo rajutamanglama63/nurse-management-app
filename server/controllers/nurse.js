@@ -186,8 +186,6 @@ nurseRouter.put("/:nurse_id", async (req, res, next) => {
       { new: true }
     );
 
-    console.log(updatedNurse);
-
     res.status(200).json({ msg: "Updated successfully.", updatedNurse });
   } catch (error) {
     next(error);
