@@ -13,6 +13,14 @@
   .align-center {
     align-items: center;
   }
+
+  .split-4 {
+    flex: 4;
+  }
+
+  .split-8 {
+    flex: 8;
+  }
   
   .gap-2 {
     gap: 2rem;
