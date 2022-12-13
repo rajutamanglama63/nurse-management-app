@@ -1,10 +1,8 @@
-import { Button, Typography } from "@mui/material";
-
 const Home = () => {
   return (
     <div>
-      <Typography variant="h1">Home page</Typography>
-      <Button variant="secondary">Btn</Button>
+      <p className="h1">Home page</p>
+      <button className="btn">ok</button>
     </div>
   );
 };

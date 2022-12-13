@@ -1,0 +1,53 @@
+.flex {
+    display: flex;
+  }
+  
+  .split-pair {
+    justify-content: space-between;
+  }
+  
+  .split-center {
+    justify-content: center;
+  }
+  
+  .align-center {
+    align-items: center;
+  }
+  
+  .gap-2 {
+    gap: 2rem;
+  }
+  
+  .gap-4 {
+    gap: 4rem
+  }
+  
+  
+  .portion-img{
+    flex: 6
+  }
+  
+  .portion-spec{
+    flex: 6
+  }
+  
+  .block-view{
+    flex-direction: column;
+  }
+  
+  .text-center{
+    text-align: center;
+  }
+  
+  .flow-direction{
+    @include breakpoint-down(medium) {
+          flex-direction: column;
+        }
+  }
+  
+  .flow-direction-tn{
+    @include breakpoint-down(small) {
+          flex-direction: column;
+        }
+    
+  }

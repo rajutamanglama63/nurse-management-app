@@ -1,0 +1,52 @@
+.region {
+    &-tn {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+  
+    &-sm {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+  
+    &-md {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+  
+    &-lg {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  
+    &-side-left-md{
+      padding-left: 4rem;
+    }
+  
+    &-side-tn{
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+  
+    &-side-md{
+      padding-left: 4rem;
+      padding-right: 4rem;
+    }
+  
+    &-margin-sm{
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  
+    &-margin-tn{
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  
+  .mob-view{
+    @include breakpoint-down(medium) {
+      padding: 1rem 0;
+    }
+  }

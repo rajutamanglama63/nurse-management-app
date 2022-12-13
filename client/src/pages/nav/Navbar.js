@@ -1,25 +1,23 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <Box>
-      <AppBar position="static" color="secondary">
-        <Toolbar>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            Nurse<span style={{ color: "red" }}>Mgmt</span>
-          </Typography>
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Register</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <div className="wrapper">
+      <div className="flex split-pair align-center">
+        <div className="logo">Nurse</div>
+        <div className="flex gap-2 align-center">
+          <Link to="#" className="text-link font-sm">
+            Hello Raju!
+          </Link>
+          <Link to="/signin" className="text-link font-sm">
+            Login
+          </Link>
+          <Link to="/signup" className="text-link font-sm">
+            Register
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,0 +1,64 @@
+.primary-button {
+    // padding: 0 6.5rem;
+    width: 100%;
+    background-color: $primary-color;
+    color: $light-color;
+    border: 1px solid $primary-color;
+    // text-decoration: none;
+    font-size: $h5;
+    &:hover {
+      background-color: $primary-color-dark;
+    }
+  }
+  
+  .secondary-button {
+    padding: 0.5rem 3rem;
+    // border: 1px solid #000;
+    border: none;
+    background-color: $primary-color;
+    color: $light-color;
+    font-size: $paragraph;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover{
+        opacity: 0.5;
+    }
+  }
+  
+  .btn-counter{
+    background-color: $light-color;
+    border: 2px solid $primary-color;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .btn{
+    border: none;
+      background-color: $primary-color;
+      color: $light-color;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      &:hover{
+        opacity: 0.5;
+      }
+  }
+  
+  .btn-del{
+    color: $secondary_color;
+  }
+  
+  .checkout-btn {
+    // padding: 0 6.5rem;
+    width: 100%;
+    background-color: $primary-color;
+    color: $light-color;
+    border: 1px solid $primary-color;
+    // text-decoration: none;
+    font-size: $paragraph;
+    
+    &:hover {
+      background-color: $primary-color-dark;
+    }
+  }
