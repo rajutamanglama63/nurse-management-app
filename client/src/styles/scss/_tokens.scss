@@ -22,6 +22,11 @@ $paragraph: 1.125rem; //18px
 $one-font-size: 1rem;
 $font-size-lg: 6rem;
 
+// font-weight
+$weight-sm: 400;
+$weight-md: 600;
+$weight-lg: 800;
+
 // Breakpoint Mixins
 // 480px / 640px / 1024px / 1400px
 $breakpoint-up: (
