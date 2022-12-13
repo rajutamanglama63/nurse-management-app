@@ -49,12 +49,14 @@
   
   .flow-direction{
     @include breakpoint-down(medium) {
+          flex: 12;
           flex-direction: column;
         }
   }
   
   .flow-direction-tn{
     @include breakpoint-down(small) {
+          flex: 12;
           flex-direction: column;
         }
     

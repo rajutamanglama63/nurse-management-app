@@ -54,3 +54,17 @@
       padding: 1rem 0;
     }
   }
+
+  .left-margin-collapse{
+    @include breakpoint-down(medium) {
+          margin-left: 0;
+        }
+  }
+
+  .top-margin{
+    @include breakpoint-down(medium) {
+          margin-top: 1rem;
+        }
+  }
+  
+  
