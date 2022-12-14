@@ -1,12 +1,16 @@
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DoneIcon from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
+import { paths } from "../../utils/paths";
+import { navigatorFunc } from "../../utils/reuseableFunc";
 
 const List = () => {
   return (
     <div className="wrapper">
       <div className="one-font-size bold region-margin-sm">Nurse list</div>
-      <button className="btn ">Add nurse</button>
+      <button className="btn " onClick={() => navigatorFunc(paths.addNewNurse)}>
+        Add nurse
+      </button>
       <div className="table-responsive region-margin-sm">
         <table className="table ">
           <tr>

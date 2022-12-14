@@ -1,3 +1,6 @@
+import { paths } from "../../utils/paths";
+import { navigatorFunc } from "../../utils/reuseableFunc";
+
 const Single = () => {
   return (
     <div className="wrapper">
@@ -56,7 +59,9 @@ const Single = () => {
         </div>
       </div>
       <div className="region-tn">
-        <button className="btn">Go back</button>
+        <button className="btn" onClick={() => navigatorFunc(paths.nurseList)}>
+          Go back
+        </button>
       </div>
     </div>
   );

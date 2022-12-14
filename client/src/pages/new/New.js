@@ -1,3 +1,6 @@
+import { paths } from "../../utils/paths";
+import { navigatorFunc } from "../../utils/reuseableFunc";
+
 // import { Link } from "react-router-dom";
 const New = () => {
   return (
@@ -10,7 +13,9 @@ const New = () => {
             Fill the following field to register new nurse
           </p>
         </div>
-        <button className="btn">Go back</button>
+        <button className="btn" onClick={() => navigatorFunc(paths.nurseList)}>
+          Go back
+        </button>
         <form>
           <input
             className="input-field region-margin-tn border-line"
