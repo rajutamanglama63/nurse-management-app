@@ -65,3 +65,17 @@
       background-color: $primary-color-dark;
     }
   }
+
+  .learn-btn {
+    border: none;
+    width: 50%;
+      background-color: $primary-color;
+      color: $light-color;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    
+    &:hover {
+      background-color: $primary-color-dark;
+    }
+  }
