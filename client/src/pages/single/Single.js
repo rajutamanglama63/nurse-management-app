@@ -55,6 +55,9 @@ const Single = () => {
           </div>
         </div>
       </div>
+      <div className="region-tn">
+        <button className="btn">Go back</button>
+      </div>
     </div>
   );
 };

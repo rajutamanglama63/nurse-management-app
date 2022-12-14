@@ -6,6 +6,7 @@ const List = () => {
   return (
     <div className="wrapper">
       <div className="one-font-size bold region-margin-sm">Nurse list</div>
+      <button className="btn ">Add nurse</button>
       <div className="table-responsive region-margin-sm">
         <table className="table ">
           <tr>

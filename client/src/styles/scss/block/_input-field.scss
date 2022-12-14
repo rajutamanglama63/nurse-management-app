@@ -2,4 +2,8 @@
     width: 100%;
     padding: 1rem 0.5rem;
     color: $text-color;
+
+    &:focus{
+        outline-color: $primary-color;
+    }
 }
