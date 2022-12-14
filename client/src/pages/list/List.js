@@ -7,7 +7,12 @@ import { navigatorFunc } from "../../utils/reuseableFunc";
 const List = () => {
   return (
     <div className="wrapper">
-      <div className="one-font-size bold region-margin-sm">Nurse list</div>
+      <div className="one-font-size bold region-margin-sm">
+        Nurse list{" "}
+        <span className="one-font-size no-font-weight region-side-tn">
+          {paths.nurseList}
+        </span>
+      </div>
       <button className="btn " onClick={() => navigatorFunc(paths.addNewNurse)}>
         Add nurse
       </button>

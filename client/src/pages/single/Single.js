@@ -4,7 +4,12 @@ import { navigatorFunc } from "../../utils/reuseableFunc";
 const Single = () => {
   return (
     <div className="wrapper">
-      <div className="one-font-size bold region-margin-sm">Nurse list</div>
+      <div className="one-font-size bold region-margin-sm">
+        Nurse list{" "}
+        <span className="one-font-size no-font-weight region-side-tn">
+          {paths.singleNurse}
+        </span>
+      </div>
       <div className="flex split-pair flow-direction flow-direction-tn">
         <div className="pic card-border split-4 flex block-view split-center align-center region-sm ">
           <div className="img">

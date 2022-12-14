@@ -28,6 +28,10 @@
   .bold {
     font-weight: $weight-lg;
   }
+
+  .no-font-weight {
+    font-weight: 100;
+  }
   
   .paragraph {
     font-size: $paragraph;
