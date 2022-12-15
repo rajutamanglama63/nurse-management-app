@@ -29,6 +29,14 @@ const nurseList = async () => {
   }
 };
 
+const singleNurse = async (nurseId) => {
+  try {
+    const response = await axios.get(`${baseUrl}/${nurseId}`);
+  } catch (error) {
+    return error.response.data.msg;
+  }
+};
+
 const deleteNurse = async (nurseId) => {
   try {
     const token = JSON.parse(window.localStorage.getItem("loggedInUser")).token;
@@ -65,6 +73,7 @@ export default {
   nursePicUpload,
   registerNurse,
   nurseList,
+  singleNurse,
   deleteNurse,
   updateNurse,
 };

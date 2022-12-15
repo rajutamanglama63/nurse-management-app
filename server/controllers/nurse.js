@@ -126,6 +126,16 @@ nurseRouter.get("/", async (req, res, next) => {
   }
 });
 
+nurseRouter.get("/:nurse_id", async (req, res, next) => {
+  try {
+    const nurse = await Nurse.findById(req.params.nurse_id);
+
+    res.status(200).json(nurse);
+  } catch (error) {
+    next(error);
+  }
+});
+
 nurseRouter.delete("/:nurse_id", async (req, res, next) => {
   try {
     const id = req.params.nurse_id;
