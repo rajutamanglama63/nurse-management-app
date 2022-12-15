@@ -17,9 +17,8 @@ const userSlice = createSlice({
         : { ...state, msg: "", user: responseData.newUser };
     },
     setUserSignin(state, action) {
-      console.log(action);
       const responseData = action.payload;
-      console.log(typeof responseData === "string");
+
       return typeof responseData === "string"
         ? { ...state, msg: responseData, user: {} }
         : { ...state, msg: "", user: responseData };
