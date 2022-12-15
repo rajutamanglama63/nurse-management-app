@@ -37,7 +37,7 @@ userRouter.post("/signup", async (req, res, next) => {
 
     newUser.save();
 
-    res.status(201).json(newUser);
+    res.status(201).json({ newUser });
   } catch (error) {
     next(error);
   }

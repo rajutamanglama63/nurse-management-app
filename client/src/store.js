@@ -1,16 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { userSignin, userSignup } from "./reducers/userReducer";
-import users from "./services/users";
+// import signinReducer from "./reducers/signinReducer";
+import userReducer from "./reducers/userReducer";
 
 const store = configureStore({
   reducer: {
-    signup: userSignup,
-    signin: userSignin,
+    auth: userReducer,
   },
-  //   middleware: (getDefaultMiddleware) =>
-  //     getDefaultMiddleware({
-  //       serializableCheck: false,
-  //     }),
 });
 
 export default store;
