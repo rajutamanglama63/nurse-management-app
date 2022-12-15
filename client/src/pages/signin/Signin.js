@@ -1,6 +1,33 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { userSignin } from "../../reducers/userReducer";
 
 const Signin = () => {
+  const dispatch = useDispatch();
+  const [userCredentials, setUserCredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  const clear = () => {
+    setUserCredentials({
+      email: "",
+      password: "",
+    });
+  };
+
+  const handleInput = (e) => {
+    // console.dir(e);
+    const { name, value } = e.target;
+    setUserCredentials({ ...userCredentials, [name]: value });
+  };
+
+  const signinHandler = (e) => {
+    e.preventDefault();
+    dispatch(userSignin(userCredentials.email, userCredentials.password));
+    clear();
+  };
   return (
     <div className="signin">
       <div className="wrapper flex block-view">
@@ -11,14 +38,20 @@ const Signin = () => {
               Please fill the following form to login.
             </p>
           </div>
-          <form>
+          <form onSubmit={signinHandler}>
             <input
               className="input-field region-margin-tn border-line"
               placeholder="Email"
+              name="email"
+              value={userCredentials.email}
+              onChange={handleInput}
             />
             <input
               className="input-field region-margin-tn border-line"
               placeholder="Password"
+              name="password"
+              value={userCredentials.password}
+              onChange={handleInput}
             />
             <button className="secondary-button region-margin-tn" type="submit">
               signin
