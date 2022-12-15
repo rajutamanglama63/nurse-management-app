@@ -1,15 +1,25 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { userSignup } from "../../reducers/userReducer";
+import { paths } from "../../utils/paths";
+import { navigatorFunc } from "../../utils/reuseableFunc";
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   const [userData, setUserData] = useState({
     fullname: "",
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (auth.user.fullname) {
+      navigatorFunc(paths.login);
+      alert("Successfully registered! Now please login to further proceed.");
+    }
+  }, [auth.user.fullname]);
 
   const clear = () => {
     setUserData({

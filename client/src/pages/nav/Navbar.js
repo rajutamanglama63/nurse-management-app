@@ -11,12 +11,13 @@ const Navbar = () => {
   const auth = useSelector((state) => state.auth);
 
   const [authenticated, setAuthenticated] = useState(false);
+  console.log(authenticated);
 
   useEffect(() => {
-    if (auth.user.fullname) {
+    if (auth.user.token) {
       setAuthenticated(true);
     }
-  }, [auth.user.fullname]);
+  }, [auth.user.token]);
 
   const logoutHandler = () => {
     removeCurrentUser();
