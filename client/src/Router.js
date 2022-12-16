@@ -16,7 +16,7 @@ const Router = () => {
         <Route path="signin" element={<Signin />} />
         <Route path="nurses">
           <Route index element={<List />} />
-          <Route path="single" element={<Single />} />
+          <Route path="single/:nurseId" element={<Single />} />
           <Route path="new" element={<New />} />
         </Route>
       </Route>

@@ -1,7 +1,20 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getNurseDetail } from "../../reducers/nurseReducer";
+
 import { paths } from "../../utils/paths";
 import { navigatorFunc } from "../../utils/reuseableFunc";
 
 const Single = () => {
+  const nurse_id = useParams();
+  const nurseDetail = useSelector((state) => state.nurse);
+  const dispatch = useDispatch();
+  console.log(nurse_id);
+
+  useEffect(() => {
+    dispatch(getNurseDetail(nurse_id));
+  }, [dispatch, nurse_id]);
   return (
     <div className="wrapper">
       <div className="one-font-size bold region-margin-sm">

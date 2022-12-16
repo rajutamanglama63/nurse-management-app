@@ -1,10 +1,24 @@
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 import DoneIcon from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllNurses } from "../../reducers/nurseReducer";
 import { paths } from "../../utils/paths";
 import { navigatorFunc } from "../../utils/reuseableFunc";
 
 const List = () => {
+  const dispatch = useDispatch();
+  const nurseList = useSelector((state) => state.nurse);
+
+  useEffect(() => {
+    dispatch(getAllNurses());
+  }, [dispatch]);
+
+  const singleNurseHandler = (nurseId) => {
+    navigatorFunc(`${paths.singleNurse}/${nurseId}`);
+  };
   return (
     <div className="wrapper">
       <div className="one-font-size bold region-margin-sm">
@@ -28,26 +42,37 @@ const List = () => {
             <th className="thead">Remove</th>
           </tr>
 
-          <tr>
-            <td className="img tdata">
-              <img
-                src="https://res.cloudinary.com/dydwwtmnj/image/upload/v1670844903/nurse/rz03b8azy6aqypojqolz.jpg"
-                alt="nursename"
-              />
-            </td>
-            <td className="tdata">Radha Chaulagain</td>
-            <td className="tdata">Lagankhel, Lalitpur</td>
-            <td className="tdata">9869563222</td>
-            <td className="tdata">
-              <DoneIcon className="paragraph" />
-            </td>
-            <td className="tdata">
-              <EditIcon className="paragraph btn-edit" />
-            </td>
-            <td className="tdata">
-              <DeleteOutlineIcon className="paragraph btn-del" />
-            </td>
-          </tr>
+          {nurseList.nurses.length !== 0
+            ? nurseList.nurses.map((nurse) => (
+                <>
+                  <tr
+                    key={nurse.id}
+                    onClick={() => singleNurseHandler(nurse.id)}
+                    className="pointer"
+                  >
+                    <td className="img tdata">
+                      <img src={nurse.photo} alt={nurse.fullname} />
+                    </td>
+                    <td className="tdata">{nurse.fullname}</td>
+                    <td className="tdata">{nurse.address}</td>
+                    <td className="tdata">{nurse.contact}</td>
+                    <td className="tdata">
+                      {nurse.isRoundingManager ? (
+                        <DoneIcon className="paragraph" />
+                      ) : (
+                        <HorizontalRuleIcon className="paragraph" />
+                      )}
+                    </td>
+                    <td className="tdata">
+                      <EditIcon className="paragraph btn-edit" />
+                    </td>
+                    <td className="tdata">
+                      <DeleteOutlineIcon className="paragraph btn-del" />
+                    </td>
+                  </tr>
+                </>
+              ))
+            : null}
         </table>
       </div>
     </div>

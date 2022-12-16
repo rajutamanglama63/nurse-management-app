@@ -40,6 +40,7 @@ export const getAllNurses = () => {
 export const getNurseDetail = (nurseId) => {
   return async (dispatch) => {
     const resultData = await services.singleNurse(nurseId);
+    console.log(resultData);
 
     dispatch(setNurse(resultData));
   };
