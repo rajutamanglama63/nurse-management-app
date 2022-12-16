@@ -32,7 +32,6 @@ const nurseList = async () => {
 const singleNurse = async (nurseId) => {
   try {
     const response = await axios.get(`${baseUrl}/${nurseId}`);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     return error.response.data.msg;

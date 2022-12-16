@@ -2,6 +2,10 @@ export const navigatorFunc = (destiny) => {
   window.location = destiny;
 };
 
+export const setDataInLocalStorage = (name, data) => {
+  window.localStorage.setItem(name, data);
+};
+
 export const getCurrentUser = () => {
   let user = null;
   if (window.localStorage.getItem("loggedInUser")) {

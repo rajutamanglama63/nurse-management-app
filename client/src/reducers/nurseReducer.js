@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import services from "../services/nurses";
+import { setDataInLocalStorage } from "../utils/reuseableFunc";
 
 const nurseSlice = createSlice({
   name: "nurse",
@@ -19,7 +20,7 @@ const nurseSlice = createSlice({
     },
     setNurseDetail(state, action) {
       const responseData = action.payload;
-
+      console.log(responseData);
       return typeof responseData === "string"
         ? { ...state, msg: responseData, nurses: [], nurseDetail: {} }
         : { ...state, msg: "", nurses: [], nurseDetail: responseData };
@@ -40,9 +41,12 @@ export const getAllNurses = () => {
 export const getNurseDetail = (nurseId) => {
   return async (dispatch) => {
     const resultData = await services.singleNurse(nurseId);
-    console.log(resultData);
+    const stringifiedData = JSON.stringify(resultData);
+    setDataInLocalStorage("singleNurse", stringifiedData);
 
-    dispatch(setNurse(resultData));
+    // window.localStorage.setItem("singleNurse", JSON.stringify(resultData));
+
+    dispatch(setNurseDetail(resultData));
   };
 };
 

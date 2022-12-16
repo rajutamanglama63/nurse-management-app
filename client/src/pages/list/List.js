@@ -4,7 +4,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllNurses } from "../../reducers/nurseReducer";
+import { getAllNurses, getNurseDetail } from "../../reducers/nurseReducer";
 import { paths } from "../../utils/paths";
 import { navigatorFunc } from "../../utils/reuseableFunc";
 
@@ -17,6 +17,7 @@ const List = () => {
   }, [dispatch]);
 
   const singleNurseHandler = (nurseId) => {
+    // dispatch(getNurseDetail(nurseId));
     navigatorFunc(`${paths.singleNurse}/${nurseId}`);
   };
   return (
