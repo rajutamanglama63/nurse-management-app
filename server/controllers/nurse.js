@@ -103,7 +103,7 @@ nurseRouter.post("/", async (req, res, next) => {
 
     await newNurse.save();
 
-    res.status(201).json(newNurse);
+    res.status(201).json({ newNurse });
   } catch (error) {
     next(error);
   }
