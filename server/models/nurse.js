@@ -24,10 +24,7 @@ const nurseSchema = new mongoose.Schema({
   photo: {
     type: String,
   },
-  workingDays: {
-    type: Array,
-    required: true,
-  },
+  workingDays: [],
   dutyStartTime: {
     type: String,
     required: true,

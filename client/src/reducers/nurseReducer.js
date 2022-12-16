@@ -39,12 +39,13 @@ export const getAllNurses = () => {
 };
 
 export const getNurseDetail = (nurseId) => {
+  console.log("nurse-detail");
   return async (dispatch) => {
     const resultData = await services.singleNurse(nurseId);
     const stringifiedData = JSON.stringify(resultData);
     setDataInLocalStorage("singleNurse", stringifiedData);
 
-    // window.localStorage.setItem("singleNurse", JSON.stringify(resultData));
+    console.log(resultData);
 
     dispatch(setNurseDetail(resultData));
   };

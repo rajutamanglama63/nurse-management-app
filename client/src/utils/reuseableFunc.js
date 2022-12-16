@@ -24,3 +24,14 @@ export const removeCurrentUser = () => {
     window.localStorage.removeItem("loggedInUser");
   }
 };
+
+export const getNurseInfo = () => {
+  let nurse = null;
+  if (window.localStorage.getItem("singleNurse")) {
+    const data = JSON.parse(window.localStorage.getItem("singleNurse"));
+    if (data) nurse = data;
+    return nurse;
+  } else {
+    return null;
+  }
+};

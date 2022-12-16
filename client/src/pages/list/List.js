@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllNurses, getNurseDetail } from "../../reducers/nurseReducer";
 import { paths } from "../../utils/paths";
 import { navigatorFunc } from "../../utils/reuseableFunc";
+import { useNavigate } from "react-router-dom";
 
 const List = () => {
+  const history = useNavigate();
   const dispatch = useDispatch();
   const nurseList = useSelector((state) => state.nurse);
 
@@ -17,9 +19,14 @@ const List = () => {
   }, [dispatch]);
 
   const singleNurseHandler = (nurseId) => {
-    // dispatch(getNurseDetail(nurseId));
-    navigatorFunc(`${paths.singleNurse}/${nurseId}`);
+    dispatch(getNurseDetail(nurseId));
+    history(`${paths.singleNurse}/${nurseId}`);
   };
+
+  // if (nurse.nurseDetail.id) {
+  //   Navigate(`nurses/single/${nurse.nurseDetail.id}`);
+  // }
+
   return (
     <div className="wrapper">
       <div className="one-font-size bold region-margin-sm">
