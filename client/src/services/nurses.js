@@ -13,7 +13,11 @@ const nursePicUpload = async (pic) => {
 
 const registerNurse = async (nurseData) => {
   try {
-    const response = await axios.post(`${baseUrl}`, nurseData);
+    const token = JSON.parse(window.localStorage.getItem("loggedInUser")).token;
+    const config = {
+      headers: { Authorization: `bearer ${token}` },
+    };
+    const response = await axios.post(`${baseUrl}`, nurseData, config);
     return response.data;
   } catch (error) {
     return error.response.data.msg;

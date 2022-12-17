@@ -32,14 +32,22 @@ const nurseSlice = createSlice({
         : {
             ...state,
             msg: "",
-            nurses: [...state, responseData],
+            nurses: responseData,
             nurseDetail: {},
           };
+    },
+    nurseDelete(state, action) {
+      const responseData = action.payload;
+
+      return typeof responseData === "string"
+        ? { ...state, msg: responseData, nurses: [], nurseDetail: {} }
+        : { ...state, msg: "", nurses: responseData, nurseDetail: {} };
     },
   },
 });
 
-export const { getNurse, setNurseDetail, setNurse } = nurseSlice.actions;
+export const { getNurse, setNurseDetail, setNurse, nurseDelete } =
+  nurseSlice.actions;
 
 export const getAllNurses = () => {
   return async (dispatch) => {
@@ -60,8 +68,18 @@ export const getNurseDetail = (nurseId) => {
 export const createNurse = (nurseData) => {
   return async (dispatch) => {
     const resultData = await services.registerNurse(nurseData);
+    console.log("from nurse reducer: ", resultData);
 
     dispatch(setNurse(resultData));
+  };
+};
+
+export const removeNurse = (nurseId) => {
+  return async (dispatch) => {
+    const resultData = await services.deleteNurse(nurseId);
+    console.log("from nurse reducer: ", resultData);
+
+    dispatch(nurseDelete(resultData));
   };
 };
 

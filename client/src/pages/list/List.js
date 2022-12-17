@@ -4,7 +4,11 @@ import DoneIcon from "@mui/icons-material/Done";
 import EditIcon from "@mui/icons-material/Edit";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllNurses, getNurseDetail } from "../../reducers/nurseReducer";
+import {
+  getAllNurses,
+  getNurseDetail,
+  removeNurse,
+} from "../../reducers/nurseReducer";
 import { paths } from "../../utils/paths";
 import { navigatorFunc } from "../../utils/reuseableFunc";
 import { useNavigate } from "react-router-dom";
@@ -23,9 +27,10 @@ const List = () => {
     history(`${paths.singleNurse}/${nurseId}`);
   };
 
-  // if (nurse.nurseDetail.id) {
-  //   Navigate(`nurses/single/${nurse.nurseDetail.id}`);
-  // }
+  const deleteHandler = async (nurseId) => {
+    await dispatch(removeNurse(nurseId));
+    dispatch(getAllNurses());
+  };
 
   return (
     <div className="wrapper">
@@ -53,15 +58,19 @@ const List = () => {
           {nurseList.nurses.length !== 0
             ? nurseList.nurses.map((nurse) => (
                 <>
-                  <tr
-                    key={nurse.id}
-                    onClick={() => singleNurseHandler(nurse.id)}
-                    className="pointer"
-                  >
-                    <td className="img tdata">
+                  <tr key={nurse.id}>
+                    <td
+                      className="img tdata pointer"
+                      onClick={() => singleNurseHandler(nurse.id)}
+                    >
                       <img src={nurse.photo} alt={nurse.fullname} />
                     </td>
-                    <td className="tdata">{nurse.fullname}</td>
+                    <td
+                      className="tdata"
+                      onClick={() => singleNurseHandler(nurse.id)}
+                    >
+                      {nurse.fullname}
+                    </td>
                     <td className="tdata">{nurse.address}</td>
                     <td className="tdata">{nurse.contact}</td>
                     <td className="tdata">
@@ -75,7 +84,10 @@ const List = () => {
                       <EditIcon className="paragraph btn-edit" />
                     </td>
                     <td className="tdata">
-                      <DeleteOutlineIcon className="paragraph btn-del" />
+                      <DeleteOutlineIcon
+                        className="paragraph btn-del"
+                        onClick={() => deleteHandler(nurse.id)}
+                      />
                     </td>
                   </tr>
                 </>

@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createNurse } from "../../reducers/nurseReducer";
 import { paths } from "../../utils/paths";
 import { navigatorFunc } from "../../utils/reuseableFunc";
 
 // import { Link } from "react-router-dom";
 const New = () => {
+  const dispatch = useDispatch();
   const [nurseData, setNurseData] = useState({
     fullname: "",
     email: "",
@@ -21,6 +24,46 @@ const New = () => {
     const { name, value } = e.target;
     setNurseData({ ...nurseData, [name]: value });
   };
+
+  const imageSelector = (e) => {
+    // console.dir(e.target);
+    const file = e.target.files[0];
+
+    const Reader = new FileReader();
+    Reader.readAsDataURL(file);
+
+    Reader.onload = () => {
+      // basically FileReader method have 3
+      // different state and they are initialState = 0, processingState = 1, readyState = 2
+      if (Reader.readyState === 2) {
+        // Reader.result will actually read the url path of pic which we have choose from our machine
+        setNurseData({ ...nurseData, photo: Reader.result });
+      }
+    };
+  };
+
+  const clear = () => {
+    setNurseData({
+      fullname: "",
+      email: "",
+      contact: "",
+      address: "",
+      gender: "",
+      photo: "",
+      workingDays: "",
+      dutyStartTime: "",
+      dutyEndTime: "",
+      isRoundingManager: "",
+    });
+  };
+
+  const nurseRegistrationHandler = (e) => {
+    e.preventDefault();
+    console.log("from new: ", nurseData);
+    dispatch(createNurse(nurseData));
+    clear();
+  };
+
   return (
     <div className="wrapper flex block-view">
       <div className="container container-sm">
@@ -34,7 +77,13 @@ const New = () => {
         <button className="btn" onClick={() => navigatorFunc(paths.nurseList)}>
           Go back
         </button>
-        <form>
+        <form onSubmit={nurseRegistrationHandler}>
+          <input
+            className="input-field region-margin-tn border-line"
+            accept="image/*"
+            type="file"
+            onChange={imageSelector}
+          />
           <input
             className="input-field region-margin-tn border-line"
             placeholder="Full name"
@@ -70,73 +119,34 @@ const New = () => {
             value={nurseData.workingDays}
             onChange={handleInput}
           />
-          {/* <input
+          <input
             className="input-field region-margin-tn border-line"
             placeholder="Gender"
             name="gender"
             value={nurseData.gender}
             onChange={handleInput}
-          /> */}
-          <div className="flex split-pair align-center">
-            <div>
-              <label className="paragraph region-margin-tn" for="gender">
-                Choose a gender:
-              </label>
-              <select name="gender" id="gender" onChange={handleInput}>
-                <option value={nurseData.gender}>Male</option>
-                <option value={nurseData.gender}>Female</option>
-              </select>
-            </div>
-            <div>
-              <label
-                className="paragraph region-margin-tn"
-                for="isRoundingManager"
-              >
-                Member status:
-              </label>
-              <select
-                name="isRoundingManager"
-                id="isRoundingManager"
-                onChange={handleInput}
-              >
-                <option value={nurseData.isRoundingManager}>False</option>
-                <option value={nurseData.isRoundingManager}>true</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="flex split-pair align-center">
-            <div>
-              <label className="paragraph region-margin-tn" for="dutyStartTime">
-                Duty start time:
-              </label>
-              <select
-                name="dutyStartTime"
-                id="dutyStartTime"
-                onChange={handleInput}
-              >
-                <option value={nurseData.dutyStartTime}>7am</option>
-                <option value={nurseData.dutyStartTime}>10am</option>
-                <option value={nurseData.dutyStartTime}>2pm</option>
-                <option value={nurseData.dutyStartTime}>6pm</option>
-              </select>
-            </div>
-            <div>
-              <label className="paragraph region-margin-tn" for="dutyEndTime">
-                Duty End time:
-              </label>
-              <select
-                name="dutyEndTime"
-                id="dutyEndTime"
-                onChange={handleInput}
-              >
-                <option value={nurseData.dutyEndTime}>4pm</option>
-                <option value={nurseData.dutyEndTime}>6pm</option>
-                <option value={nurseData.dutyEndTime}>8pm</option>
-                <option value={nurseData.dutyEndTime}>7am</option>
-              </select>
-            </div>
-          </div>
+          />
+          <input
+            className="input-field region-margin-tn border-line"
+            placeholder="Duty start time. Specificy with am/pm"
+            name="dutyStartTime"
+            value={nurseData.dutyStartTime}
+            onChange={handleInput}
+          />
+          <input
+            className="input-field region-margin-tn border-line"
+            placeholder="Duty end time. Specificy with am/pm"
+            name="dutyEndTime"
+            value={nurseData.dutyEndTime}
+            onChange={handleInput}
+          />
+          <input
+            className="input-field region-margin-tn border-line"
+            placeholder="Is rounding manager? True/False"
+            name="isRoundingManager"
+            value={nurseData.isRoundingManager}
+            onChange={handleInput}
+          />
 
           <button className="secondary-button region-margin-tn" type="submit">
             Register nurse
