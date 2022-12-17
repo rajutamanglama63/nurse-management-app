@@ -8,7 +8,10 @@ export const setDataInLocalStorage = (name, data) => {
 
 export const getCurrentUser = () => {
   let user = null;
-  if (window.localStorage.getItem("loggedInUser")) {
+  if (
+    window.localStorage.getItem("loggedInUser") &&
+    window.localStorage.getItem("loggedInUser") !== undefined
+  ) {
     const data = JSON.parse(
       window.localStorage.getItem("loggedInUser")
     ).fullname;
