@@ -126,7 +126,7 @@ nurseRouter.post("/", async (req, res, next) => {
 
 nurseRouter.get("/", async (req, res, next) => {
   try {
-    let nurses = await Nurse.find({});
+    let nurses = await Nurse.find({}).sort({ fullname: 1 });
 
     nurses.forEach(function (nurse, index) {
       if (nurse.role === "Rounding manager") {
@@ -135,7 +135,7 @@ nurseRouter.get("/", async (req, res, next) => {
       }
     });
 
-    res.status(200).json(nurses.sort());
+    res.status(200).json(nurses);
   } catch (error) {
     next(error);
   }

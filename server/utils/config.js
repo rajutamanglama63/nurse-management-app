@@ -8,6 +8,7 @@ dotenv.config();
 const PORT = process.env.PORT || 4000;
 
 const SECRET = process.env.SECRET;
+const REFRESH_SECRET = process.env.REFRESH_SECRET;
 
 const connectDB = async () => {
   try {
@@ -23,4 +24,5 @@ module.exports = {
   PORT,
   connectDB,
   SECRET,
+  REFRESH_SECRET,
 };

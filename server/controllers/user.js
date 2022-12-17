@@ -66,10 +66,14 @@ userRouter.post("/signin", async (req, res, next) => {
       id: userExist._id,
     };
 
-    const token = jwt.sign(userForToken, config.SECRET, { expiresIn: 60 * 60 });
+    const token = jwt.sign(userForToken, config.SECRET, { expiresIn: "1m" });
+    const refreshToken = jwt.sign(userForToken, config.REFRESH_SECRET, {
+      expiresIn: "1d",
+    });
 
     res.status(200).json({
       token,
+      refreshToken,
       id: userExist.id,
       fullname: userExist.fullname,
     });
@@ -77,5 +81,38 @@ userRouter.post("/signin", async (req, res, next) => {
     next(error);
   }
 });
+
+userRouter.post("/refresh-token", async (req, res, next) => {
+  try {
+    const { refresh_token } = req.body;
+    if (!refresh_token) {
+      return res.status(400).json({ msg: "Refresh token is undefined." });
+    }
+
+    const user = userDecodedFromToken(refresh_token);
+
+    const token = jwt.sign({ user }, config.SECRET, { expiresIn: "1m" });
+    console.log(token);
+    const refreshToken = jwt.sign({ user }, config.REFRESH_SECRET, {
+      expiresIn: "1d",
+    });
+    console.log(refreshToken);
+
+    res.status(200).json({
+      token,
+      refreshToken,
+      id: user.id,
+      fullname: user.fullname,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+const userDecodedFromToken = (user) => {
+  const decodedUser = jwt.verify(user, config.REFRESH_SECRET);
+
+  return decodedUser;
+};
 
 module.exports = userRouter;
