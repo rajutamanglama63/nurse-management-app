@@ -161,7 +161,7 @@ nurseRouter.delete("/:nurse_id", async (req, res, next) => {
     }
 
     nurseToBeRemoved.remove();
-    res.status(200).json({ msg: "Removed successfully.", nurseToBeRemoved });
+    res.status(200).json({ msg: "Removed successfully." });
   } catch (error) {
     next(error);
   }

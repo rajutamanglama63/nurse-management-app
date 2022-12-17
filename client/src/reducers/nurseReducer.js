@@ -27,7 +27,7 @@ const nurseSlice = createSlice({
     setNurse(state, action) {
       const responseData = action.payload;
 
-      return typeof responseData === "string"
+      return responseData.msg
         ? { ...state, msg: responseData, nurses: [], nurseDetail: {} }
         : {
             ...state,
@@ -39,7 +39,7 @@ const nurseSlice = createSlice({
     nurseDelete(state, action) {
       const responseData = action.payload;
 
-      return typeof responseData === "string"
+      return typeof responseData.msg
         ? { ...state, msg: responseData, nurses: [], nurseDetail: {} }
         : { ...state, msg: "", nurses: responseData, nurseDetail: {} };
     },
@@ -52,6 +52,7 @@ export const { getNurse, setNurseDetail, setNurse, nurseDelete } =
 export const getAllNurses = () => {
   return async (dispatch) => {
     const resultData = await services.nurseList();
+    console.log("when del btn clicked: ", resultData);
 
     dispatch(getNurse(resultData));
   };

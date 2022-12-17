@@ -55,7 +55,7 @@ const List = () => {
             <th className="thead">Remove</th>
           </tr>
 
-          {nurseList.nurses.length !== 0
+          {nurseList.nurses && nurseList.nurses.length !== 0
             ? nurseList.nurses.map((nurse) => (
                 <>
                   <tr key={nurse.id}>
