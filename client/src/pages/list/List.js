@@ -13,7 +13,7 @@ import { paths } from "../../utils/paths";
 import { navigatorFunc } from "../../utils/reuseableFunc";
 import { useNavigate } from "react-router-dom";
 
-const List = () => {
+const List = ({ setCurrentId }) => {
   const history = useNavigate();
   const dispatch = useDispatch();
   const nurseList = useSelector((state) => state.nurse);
@@ -30,6 +30,11 @@ const List = () => {
   const deleteHandler = async (nurseId) => {
     await dispatch(removeNurse(nurseId));
     dispatch(getAllNurses());
+  };
+
+  const editHandler = (nurseId) => {
+    setCurrentId(nurseId);
+    history(`${paths.addNewNurse}`);
   };
 
   return (
@@ -66,7 +71,7 @@ const List = () => {
                       <img src={nurse.photo} alt={nurse.fullname} />
                     </td>
                     <td
-                      className="tdata"
+                      className="tdata pointer"
                       onClick={() => singleNurseHandler(nurse.id)}
                     >
                       {nurse.fullname}
@@ -81,7 +86,10 @@ const List = () => {
                       )}
                     </td>
                     <td className="tdata">
-                      <EditIcon className="paragraph btn-edit" />
+                      <EditIcon
+                        className="paragraph btn-edit"
+                        onClick={() => editHandler(nurse.id)}
+                      />
                     </td>
                     <td className="tdata">
                       <DeleteOutlineIcon

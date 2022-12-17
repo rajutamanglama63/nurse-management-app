@@ -1,12 +1,17 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createNurse } from "../../reducers/nurseReducer";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createNurse, nurseUpdate } from "../../reducers/nurseReducer";
 import { paths } from "../../utils/paths";
 import { navigatorFunc } from "../../utils/reuseableFunc";
 
 // import { Link } from "react-router-dom";
-const New = () => {
+const New = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
+  const nurse = useSelector((state) =>
+    currentId
+      ? state.nurse.nurses.find((singleNurse) => singleNurse.id === currentId)
+      : null
+  );
   const [nurseData, setNurseData] = useState({
     fullname: "",
     email: "",
@@ -17,7 +22,7 @@ const New = () => {
     workingDays: "",
     dutyStartTime: "",
     dutyEndTime: "",
-    isRoundingManager: "",
+    isRoundingManager: false,
   });
 
   const handleInput = (e) => {
@@ -42,7 +47,12 @@ const New = () => {
     };
   };
 
+  useEffect(() => {
+    if (nurse) setNurseData(nurse);
+  }, [nurse]);
+
   const clear = () => {
+    setCurrentId(null);
     setNurseData({
       fullname: "",
       email: "",
@@ -53,15 +63,21 @@ const New = () => {
       workingDays: "",
       dutyStartTime: "",
       dutyEndTime: "",
-      isRoundingManager: "",
+      isRoundingManager: false,
     });
   };
 
   const nurseRegistrationHandler = (e) => {
     e.preventDefault();
     console.log("from new: ", nurseData);
-    dispatch(createNurse(nurseData));
-    clear();
+
+    if (currentId === null) {
+      dispatch(createNurse(nurseData));
+      clear();
+    } else {
+      dispatch(nurseUpdate(currentId, nurseData));
+      clear();
+    }
   };
 
   return (

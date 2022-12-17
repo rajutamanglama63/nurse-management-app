@@ -27,7 +27,7 @@ const nurseSlice = createSlice({
     setNurse(state, action) {
       const responseData = action.payload;
 
-      return responseData.msg
+      return typeof responseData === "string"
         ? { ...state, msg: responseData, nurses: [], nurseDetail: {} }
         : {
             ...state,
@@ -39,20 +39,26 @@ const nurseSlice = createSlice({
     nurseDelete(state, action) {
       const responseData = action.payload;
 
-      return typeof responseData.msg
+      return typeof responseData === "string"
+        ? { ...state, msg: responseData, nurses: [], nurseDetail: {} }
+        : { ...state, msg: "", nurses: responseData, nurseDetail: {} };
+    },
+    nurseEdit(state, action) {
+      const responseData = action.payload;
+
+      return typeof responseData === "string"
         ? { ...state, msg: responseData, nurses: [], nurseDetail: {} }
         : { ...state, msg: "", nurses: responseData, nurseDetail: {} };
     },
   },
 });
 
-export const { getNurse, setNurseDetail, setNurse, nurseDelete } =
+export const { getNurse, setNurseDetail, setNurse, nurseDelete, nurseEdit } =
   nurseSlice.actions;
 
 export const getAllNurses = () => {
   return async (dispatch) => {
     const resultData = await services.nurseList();
-    console.log("when del btn clicked: ", resultData);
 
     dispatch(getNurse(resultData));
   };
@@ -69,7 +75,6 @@ export const getNurseDetail = (nurseId) => {
 export const createNurse = (nurseData) => {
   return async (dispatch) => {
     const resultData = await services.registerNurse(nurseData);
-    console.log("from nurse reducer: ", resultData);
 
     dispatch(setNurse(resultData));
   };
@@ -78,9 +83,17 @@ export const createNurse = (nurseData) => {
 export const removeNurse = (nurseId) => {
   return async (dispatch) => {
     const resultData = await services.deleteNurse(nurseId);
-    console.log("from nurse reducer: ", resultData);
 
     dispatch(nurseDelete(resultData));
+  };
+};
+
+export const nurseUpdate = (nurseId, updatedData) => {
+  return async (dispatch) => {
+    const resultData = await services.updateNurse(nurseId, updatedData);
+    console.log("from edit nurse reducer: ", resultData);
+
+    dispatch(nurseEdit(resultData));
   };
 };
 

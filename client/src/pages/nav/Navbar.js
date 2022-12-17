@@ -42,7 +42,10 @@ const Navbar = () => {
               <Link to={paths.nurseList} className="text-link font-sm">
                 Nurses
               </Link>
-              <p className="text-link font-sm" onClick={() => logoutHandler()}>
+              <p
+                className="text-link font-sm pointer"
+                onClick={() => logoutHandler()}
+              >
                 Logout
               </p>
             </>

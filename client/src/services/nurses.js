@@ -63,11 +63,12 @@ const updateNurse = async (nurseId, updatedNurseData) => {
       headers: { Authorization: `bearer ${token}` },
     };
 
-    const response = await axios.delete(
+    const response = await axios.put(
       `${baseUrl}/${nurseId}`,
       updatedNurseData,
       config
     );
+    console.log("updated-response :", response);
     return response.data;
   } catch (error) {
     return error.response.data.msg;

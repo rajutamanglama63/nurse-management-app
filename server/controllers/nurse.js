@@ -56,6 +56,12 @@ cloudinary.config({
 //   }
 // });
 
+// const removeTem = (path) => {
+//   fs.unlink(path, (err) => {
+//     if (err) throw err;
+//   });
+// };
+
 nurseRouter.post("/", async (req, res, next) => {
   try {
     const {
@@ -73,13 +79,13 @@ nurseRouter.post("/", async (req, res, next) => {
     const decodedUser = userDecodedFromToken(req.user);
 
     if (!decodedUser.id) {
-      return res.status(401).json({ error: "token missing or invalid" });
+      return res.status(401).json({ msg: "token missing or invalid" });
     }
 
     const user = await User.findById(decodedUser.id);
 
     if (!user) {
-      res.status(401).json({ error: "token missing or invalid" });
+      res.status(401).json({ msg: "token missing or invalid" });
     }
 
     const myCloud = await cloudinary.v2.uploader.upload(
@@ -116,12 +122,6 @@ nurseRouter.post("/", async (req, res, next) => {
   }
 });
 
-const removeTem = (path) => {
-  fs.unlink(path, (err) => {
-    if (err) throw err;
-  });
-};
-
 nurseRouter.get("/", async (req, res, next) => {
   try {
     let nurses = await Nurse.find({});
@@ -157,7 +157,7 @@ nurseRouter.delete("/:nurse_id", async (req, res, next) => {
     const decodedUser = userDecodedFromToken(req.user);
 
     if (!decodedUser.id) {
-      return res.status(401).json({ error: "token missing or invalid" });
+      return res.status(401).json({ msg: "token missing or invalid" });
     }
 
     nurseToBeRemoved.remove();
@@ -187,7 +187,7 @@ nurseRouter.put("/:nurse_id", async (req, res, next) => {
     const decodedUser = userDecodedFromToken(req.user);
 
     if (!decodedUser.id) {
-      return res.status(401).json({ error: "token missing or invalid" });
+      return res.status(401).json({ msg: "token missing or invalid" });
     }
 
     const nurseWithUpdatedData = {
@@ -203,13 +203,9 @@ nurseRouter.put("/:nurse_id", async (req, res, next) => {
       isRoundingManager,
     };
 
-    const updatedNurse = await Nurse.findByIdAndUpdate(
-      id,
-      nurseWithUpdatedData,
-      { new: true }
-    );
+    await Nurse.findByIdAndUpdate(id, nurseWithUpdatedData, { new: true });
 
-    res.status(200).json({ msg: "Updated successfully.", updatedNurse });
+    res.status(200).json({ msg: "Updated successfully." });
   } catch (error) {
     next(error);
   }

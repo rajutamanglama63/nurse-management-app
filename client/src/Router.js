@@ -14,6 +14,8 @@ const Router = () => {
   const authenticatedUser = getCurrentUser();
   const auth = useSelector((state) => state.auth);
 
+  const [currentId, setCurrentId] = useState(null);
+
   // this state is created to make this component re-render so that browser can reload and get actual state of localStorage.loggedInUser
   const [isAuth, setIsAuth] = useState(false);
   console.log("from router:", isAuth);
@@ -30,12 +32,30 @@ const Router = () => {
         <Route path="signup" element={<Signup />} />
         <Route path="signin" element={<Signin />} />
         <Route path="nurses">
-          <Route index element={authenticatedUser ? <List /> : <Home />} />
+          <Route
+            index
+            element={
+              authenticatedUser ? (
+                <List setCurrentId={setCurrentId} />
+              ) : (
+                <Home />
+              )
+            }
+          />
           <Route
             path="single/:nurseId"
             element={authenticatedUser ? <Single /> : <Home />}
           />
-          <Route path="new" element={authenticatedUser ? <New /> : <Home />} />
+          <Route
+            path="new"
+            element={
+              authenticatedUser ? (
+                <New currentId={currentId} setCurrentId={setCurrentId} />
+              ) : (
+                <Home />
+              )
+            }
+          />
         </Route>
       </Route>
     </Routes>
