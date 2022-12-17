@@ -74,6 +74,7 @@ nurseRouter.post("/", async (req, res, next) => {
       workingDays,
       dutyStartTime,
       dutyEndTime,
+      role,
     } = req.body;
 
     const decodedUser = userDecodedFromToken(req.user);
@@ -111,6 +112,7 @@ nurseRouter.post("/", async (req, res, next) => {
       workingDays,
       dutyStartTime,
       dutyEndTime,
+      role,
       registeredBy: user.fullname,
     });
 
@@ -127,13 +129,13 @@ nurseRouter.get("/", async (req, res, next) => {
     let nurses = await Nurse.find({});
 
     nurses.forEach(function (nurse, index) {
-      if (nurse.isRoundingManager) {
+      if (nurse.role === "Rounding manager") {
         nurses.splice(index, 1);
         nurses.unshift(nurse);
       }
     });
 
-    res.status(200).json(nurses);
+    res.status(200).json(nurses.sort());
   } catch (error) {
     next(error);
   }
@@ -181,7 +183,7 @@ nurseRouter.put("/:nurse_id", async (req, res, next) => {
       workingDays,
       dutyStartTime,
       dutyEndTime,
-      isRoundingManager,
+      role,
     } = req.body;
 
     const decodedUser = userDecodedFromToken(req.user);
@@ -200,7 +202,7 @@ nurseRouter.put("/:nurse_id", async (req, res, next) => {
       workingDays,
       dutyStartTime,
       dutyEndTime,
-      isRoundingManager,
+      role,
     };
 
     await Nurse.findByIdAndUpdate(id, nurseWithUpdatedData, { new: true });

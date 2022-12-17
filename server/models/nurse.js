@@ -33,9 +33,8 @@ const nurseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  isRoundingManager: {
-    type: Boolean,
-    default: false,
+  role: {
+    type: String,
   },
   registeredBy: {
     type: String,

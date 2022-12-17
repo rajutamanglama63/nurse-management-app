@@ -79,7 +79,7 @@ const List = ({ setCurrentId }) => {
                     <td className="tdata">{nurse.address}</td>
                     <td className="tdata">{nurse.contact}</td>
                     <td className="tdata">
-                      {nurse.isRoundingManager ? (
+                      {nurse.role === "Rounding manager" ? (
                         <DoneIcon className="paragraph" />
                       ) : (
                         <HorizontalRuleIcon className="paragraph" />

@@ -15,14 +15,14 @@ const New = ({ currentId, setCurrentId }) => {
   const [nurseData, setNurseData] = useState({
     fullname: "",
     email: "",
-    contact: "",
+    contact: +997,
     address: "",
     gender: "",
     photo: "",
     workingDays: "",
     dutyStartTime: "",
     dutyEndTime: "",
-    isRoundingManager: false,
+    role: "",
   });
 
   const handleInput = (e) => {
@@ -56,14 +56,14 @@ const New = ({ currentId, setCurrentId }) => {
     setNurseData({
       fullname: "",
       email: "",
-      contact: "",
+      contact: +977,
       address: "",
       gender: "",
       photo: "",
       workingDays: "",
       dutyStartTime: "",
       dutyEndTime: "",
-      isRoundingManager: false,
+      role: "",
     });
   };
 
@@ -117,6 +117,7 @@ const New = ({ currentId, setCurrentId }) => {
           <input
             className="input-field region-margin-tn border-line"
             placeholder="Contact"
+            type="number"
             name="contact"
             value={nurseData.contact}
             onChange={handleInput}
@@ -130,39 +131,69 @@ const New = ({ currentId, setCurrentId }) => {
           />
           <input
             className="input-field region-margin-tn border-line"
-            placeholder="Working days"
+            placeholder="Working days -example-- sunday, monday, tuesday"
             name="workingDays"
             value={nurseData.workingDays}
             onChange={handleInput}
           />
-          <input
-            className="input-field region-margin-tn border-line"
-            placeholder="Gender"
-            name="gender"
-            value={nurseData.gender}
-            onChange={handleInput}
-          />
-          <input
-            className="input-field region-margin-tn border-line"
-            placeholder="Duty start time. Specificy with am/pm"
-            name="dutyStartTime"
-            value={nurseData.dutyStartTime}
-            onChange={handleInput}
-          />
-          <input
-            className="input-field region-margin-tn border-line"
-            placeholder="Duty end time. Specificy with am/pm"
-            name="dutyEndTime"
-            value={nurseData.dutyEndTime}
-            onChange={handleInput}
-          />
-          <input
-            className="input-field region-margin-tn border-line"
-            placeholder="Is rounding manager? True/False"
-            name="isRoundingManager"
-            value={nurseData.isRoundingManager}
-            onChange={handleInput}
-          />
+
+          <div className="flex split-pair input-field region-margin-tn">
+            <div>
+              <label className="paragraph">Gender:</label>
+
+              <select
+                name="gender"
+                value={nurseData.gender}
+                onChange={handleInput}
+              >
+                <option>--Please choose an option--</option>
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+            <div>
+              <label className="paragraph">Role:</label>
+
+              <select name="role" value={nurseData.role} onChange={handleInput}>
+                <option>--Please choose an option--</option>
+                <option>Rounding manager</option>
+                <option>Staff</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="flex split-pair input-field region-margin-tn">
+            <div>
+              <label className="paragraph">Duty start time:</label>
+
+              <select
+                name="dutyStartTime"
+                value={nurseData.dutyStartTime}
+                onChange={handleInput}
+              >
+                <option>--Please choose an option--</option>
+                <option>9am</option>
+                <option>10am</option>
+                <option>2pm</option>
+                <option>7pm</option>
+              </select>
+            </div>
+            <div>
+              <label className="paragraph">Duty end time:</label>
+
+              <select
+                name="dutyEndTime"
+                value={nurseData.dutyEndTime}
+                onChange={handleInput}
+              >
+                <option>--Please choose an option--</option>
+                <option>4pm</option>
+                <option>5pm</option>
+                <option>8pm</option>
+                <option>6am</option>
+              </select>
+            </div>
+          </div>
 
           <button className="secondary-button region-margin-tn" type="submit">
             Register nurse
