@@ -49,7 +49,7 @@ beforeEach(async () => {
     .expect(200)
     .expect("Content-Type", /application\/json/);
   token = response.body.token;
-});
+}, 100000);
 
 describe("Nurse APIs", () => {
   test("get all nurses", async () => {
@@ -57,7 +57,7 @@ describe("Nurse APIs", () => {
       .get("/api/nurse")
       .set("authorization", "bearer " + token);
     expect(response.body).toHaveLength(2);
-    expect(response.body[0].fullname).toBe("Desy Pudasaini");
+    expect(response.body[0].fullname).toBe("Roshni Karki");
   });
 
   test("add a new nurse", async () => {
@@ -68,7 +68,7 @@ describe("Nurse APIs", () => {
       address: "Charikot, Dolakha",
       gender: "female",
       photo:
-        "https://res.cloudinary.com/dydwwtmnj/image/upload/v1670994198/nurse/dq6bmanze0a2xruaziet.jpg",
+        "https://res.cloudinary.com/dydwwtmnj/image/upload/v1671290661/nurse/bmjh5o4tlqmdpanhqahi.jpg",
       workingDays: ["Monday", "Tuesday", "Wednesday"],
       dutyStartTime: "9am",
       dutyEndTime: "4pm",
@@ -83,18 +83,18 @@ describe("Nurse APIs", () => {
       .expect("Content-Type", /application\/json/);
     const allNurseAfterAddingNewNurse = await Nurse.find({});
     expect(allNurseAfterAddingNewNurse).toHaveLength(3);
-  });
+  }, 100000);
 
   test("update a nurse", async () => {
     const updatedNurse = {
       fullname: "Roshni Karki",
       email: "karki.123@gmail.com",
-      contact: 9856650236,
+      contact: 9852010236,
       address: "Panuti, Kavre",
       gender: "female",
       photo:
         "https://res.cloudinary.com/dydwwtmnj/image/upload/v1670994198/nurse/dq6bmanze0a2xruaziet.jpg",
-      workingDays: ["Monday", "Tuesday", "Wednesday"],
+      workingDays: ["Sunday", "Tuesday", "Wednesday"],
       dutyStartTime: "9am",
       dutyEndTime: "4pm",
       role: "Rounding manager",
@@ -108,7 +108,7 @@ describe("Nurse APIs", () => {
     const nurseStateAfterUpdate = await Nurse.findById(
       initialNurseState[0]._id
     );
-    expect(nurseStateAfterUpdate.contact).toContain(9856650236);
+    expect(nurseStateAfterUpdate.workingDays).toContain("Sunday");
   });
 
   test("delete a nurse", async () => {

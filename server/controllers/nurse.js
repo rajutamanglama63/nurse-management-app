@@ -90,10 +90,10 @@ nurseRouter.post("/", async (req, res, next) => {
       res.status(401).json({ msg: "token missing or invalid" });
     }
 
-    let img = sharp(photo).resize(200, 200);
+    // let img = sharp(photo).resize(200, 200);
 
     const myCloud = await cloudinary.v2.uploader.upload(
-      img,
+      photo,
       {
         folder: "nurse",
       },
