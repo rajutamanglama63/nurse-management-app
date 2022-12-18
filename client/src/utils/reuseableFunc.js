@@ -28,6 +28,22 @@ export const removeCurrentUser = () => {
   }
 };
 
+export const getRefreshToken = () => {
+  let ref_token = null;
+  if (
+    window.localStorage.getItem("loggedInUser") &&
+    window.localStorage.getItem("loggedInUser") !== undefined
+  ) {
+    const data = JSON.parse(
+      window.localStorage.getItem("loggedInUser")
+    ).refreshToken;
+    if (data) ref_token = data;
+    return ref_token;
+  } else {
+    return null;
+  }
+};
+
 export const getNurseInfo = () => {
   let nurse = null;
   if (window.localStorage.getItem("singleNurse")) {

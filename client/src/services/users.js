@@ -22,4 +22,20 @@ const userSignin = async (userCredentials) => {
   }
 };
 
-export default { userSignup, userSignin };
+const refreshTheToken = async (refresh_token) => {
+  try {
+    // const token = JSON.parse(window.localStorage.getItem("loggedInUser")).token;
+    // const config = {
+    //   headers: { Authorization: `bearer ${token}` },
+    // };
+    const response = await axios.post(`${baseUrl}/refresh-token`, {
+      refresh_token,
+    });
+
+    return response.data;
+  } catch (error) {
+    return error.response.data.msg;
+  }
+};
+
+export default { userSignup, userSignin, refreshTheToken };

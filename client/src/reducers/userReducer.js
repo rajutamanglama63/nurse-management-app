@@ -23,13 +23,20 @@ const userSlice = createSlice({
         ? { ...state, msg: responseData, user: {} }
         : { ...state, msg: "", user: responseData };
     },
+    setRefreshToken(state, action) {
+      const responseData = action.payload;
+
+      return typeof responseData === "string"
+        ? { ...state, msg: responseData, user: {} }
+        : { ...state, msg: "", user: responseData };
+    },
     setUserLogout(state, action) {
       return { ...state, msg: "", user: {} };
     },
   },
 });
 
-export const { setUserSignup, setUserSignin, setUserLogout } =
+export const { setUserSignup, setUserSignin, setRefreshToken, setUserLogout } =
   userSlice.actions;
 
 export const userSignup = (data) => {
@@ -47,6 +54,16 @@ export const userSignin = (email, password) => {
     window.localStorage.setItem("loggedInUser", JSON.stringify(resultData));
 
     dispatch(setUserSignin(resultData));
+  };
+};
+
+export const refreshToken = (refresh_token) => {
+  return async (dispatch) => {
+    const resultData = await services.refreshTheToken(refresh_token);
+
+    window.localStorage.setItem("loggedInUser", JSON.stringify(resultData));
+
+    dispatch(setRefreshToken(resultData));
   };
 };
 
