@@ -10,7 +10,7 @@ export const getCurrentUser = () => {
   let user = null;
   if (
     window.localStorage.getItem("loggedInUser") &&
-    window.localStorage.getItem("loggedInUser") !== undefined
+    window.localStorage.getItem("loggedInUser") !== "undefined"
   ) {
     const data = JSON.parse(
       window.localStorage.getItem("loggedInUser")
@@ -32,7 +32,7 @@ export const getRefreshToken = () => {
   let ref_token = null;
   if (
     window.localStorage.getItem("loggedInUser") &&
-    window.localStorage.getItem("loggedInUser") !== undefined
+    window.localStorage.getItem("loggedInUser") !== "undefined"
   ) {
     const data = JSON.parse(
       window.localStorage.getItem("loggedInUser")

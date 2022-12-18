@@ -10,6 +10,7 @@ function App() {
   const auth = useSelector((state) => state.auth);
   const ref_token = getRefreshToken();
   const [render, setRender] = useState(false);
+  console.log("re-rendering: ", render);
   useEffect(() => {
     setTimeout(() => {
       dispatch(refreshToken(ref_token));

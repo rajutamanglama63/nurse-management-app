@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
+const sharp = require("sharp");
 
 const Nurse = require("../models/nurse");
 const User = require("../models/user");
@@ -89,8 +90,10 @@ nurseRouter.post("/", async (req, res, next) => {
       res.status(401).json({ msg: "token missing or invalid" });
     }
 
+    let img = sharp(photo).resize(200, 200);
+
     const myCloud = await cloudinary.v2.uploader.upload(
-      photo,
+      img,
       {
         folder: "nurse",
       },
