@@ -66,9 +66,9 @@ userRouter.post("/signin", async (req, res, next) => {
       id: userExist._id,
     };
 
-    const token = jwt.sign(userForToken, config.SECRET, { expiresIn: "1m" });
+    const token = jwt.sign(userForToken, config.SECRET, { expiresIn: "1h" });
     const refreshToken = jwt.sign(userForToken, config.REFRESH_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "3h",
     });
 
     res.status(200).json({
@@ -91,10 +91,10 @@ userRouter.post("/refresh-token", async (req, res, next) => {
 
     const user = userDecodedFromToken(refresh_token);
 
-    const token = jwt.sign({ user }, config.SECRET, { expiresIn: "1m" });
+    const token = jwt.sign({ user }, config.SECRET, { expiresIn: "1h" });
 
     const refreshToken = jwt.sign({ user }, config.REFRESH_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "3h",
     });
 
     res.status(200).json({

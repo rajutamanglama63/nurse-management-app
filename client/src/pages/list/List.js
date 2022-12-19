@@ -60,47 +60,53 @@ const List = ({ setCurrentId }) => {
             <th className="thead">Remove</th>
           </tr>
 
-          {nurseList.nurses && nurseList.nurses.length !== 0
-            ? nurseList.nurses.map((nurse) => (
-                <>
-                  <tr key={nurse.id}>
-                    <td
-                      className="img tdata pointer"
-                      onClick={() => singleNurseHandler(nurse.id)}
-                    >
-                      <img src={nurse.photo} alt={nurse.fullname} />
-                    </td>
-                    <td
-                      className="tdata pointer"
-                      onClick={() => singleNurseHandler(nurse.id)}
-                    >
-                      {nurse.fullname}
-                    </td>
-                    <td className="tdata">{nurse.address}</td>
-                    <td className="tdata">{nurse.contact}</td>
-                    <td className="tdata">
-                      {nurse.role === "Rounding manager" ? (
-                        <DoneIcon className="paragraph" />
-                      ) : (
-                        <HorizontalRuleIcon className="paragraph" />
-                      )}
-                    </td>
-                    <td className="tdata">
-                      <EditIcon
-                        className="paragraph btn-edit"
-                        onClick={() => editHandler(nurse.id)}
-                      />
-                    </td>
-                    <td className="tdata">
-                      <DeleteOutlineIcon
-                        className="paragraph btn-del"
-                        onClick={() => deleteHandler(nurse.id)}
-                      />
-                    </td>
-                  </tr>
-                </>
-              ))
-            : null}
+          {nurseList.nurses && nurseList.nurses.length !== 0 ? (
+            nurseList.nurses.map((nurse) => (
+              <>
+                <tr key={nurse.id}>
+                  <td
+                    className="img tdata pointer"
+                    onClick={() => singleNurseHandler(nurse.id)}
+                  >
+                    <img src={nurse.photo} alt={nurse.fullname} />
+                  </td>
+                  <td
+                    className="tdata pointer"
+                    onClick={() => singleNurseHandler(nurse.id)}
+                  >
+                    {nurse.fullname}
+                  </td>
+                  <td className="tdata">{nurse.address}</td>
+                  <td className="tdata">{nurse.contact}</td>
+                  <td className="tdata">
+                    {nurse.role === "Rounding manager" ? (
+                      <DoneIcon className="paragraph" />
+                    ) : (
+                      <HorizontalRuleIcon className="paragraph" />
+                    )}
+                  </td>
+                  <td className="tdata">
+                    <EditIcon
+                      className="paragraph btn-edit"
+                      onClick={() => editHandler(nurse.id)}
+                    />
+                  </td>
+                  <td className="tdata">
+                    <DeleteOutlineIcon
+                      className="paragraph btn-del"
+                      onClick={() => deleteHandler(nurse.id)}
+                    />
+                  </td>
+                </tr>
+              </>
+            ))
+          ) : (
+            <>
+              <p className="paragraph flex align-center region-tn">
+                No data found
+              </p>
+            </>
+          )}
         </table>
       </div>
     </div>
